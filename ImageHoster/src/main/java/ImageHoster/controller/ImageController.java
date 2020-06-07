@@ -5,6 +5,7 @@ import ImageHoster.model.Tag;
 import ImageHoster.model.User;
 import ImageHoster.service.ImageService;
 import ImageHoster.service.TagService;
+import ImageHoster.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class ImageController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private UserService userService;
 
     //This method displays all the images in the user home page after successful login
     @RequestMapping("images")
@@ -95,10 +99,12 @@ public class ImageController {
     @RequestMapping(value = "/editImage")
     public String editImage(@RequestParam("imageId") Integer imageId, Model model) {
         Image image = imageService.getImage(imageId);
-
         String tags = convertTagsToString(image.getTags());
+//        String error = "Only the owner of the image can edit the image";
+
         model.addAttribute("image", image);
         model.addAttribute("tags", tags);
+//        model.addAttribute("editError", error);
         return "images/edit";
     }
 
@@ -118,6 +124,8 @@ public class ImageController {
 
         Image image = imageService.getImage(imageId);
         String updatedImageData = convertUploadedFileToBase64(file);
+
+
         List<Tag> imageTags = findOrCreateTags(tags);
 
         if (updatedImageData.isEmpty())
@@ -132,8 +140,19 @@ public class ImageController {
         updatedImage.setTags(imageTags);
         updatedImage.setDate(new Date());
 
-        imageService.updateImage(updatedImage);
-        return "redirect:/images/" + updatedImage.getTitle();
+
+//        if (image.getUser() == userService.login(user)) {
+//            imageService.updateImage(updatedImage);
+//            return "redirect:/images/" + updatedImage.getId() + '/' + updatedImage.getTitle();
+//        } else
+//        {
+//            return "editImage" ;
+//        }
+
+
+            imageService.updateImage(updatedImage);
+            return "redirect:/images/" + updatedImage.getId() + '/' + updatedImage.getTitle();
+
     }
 
 

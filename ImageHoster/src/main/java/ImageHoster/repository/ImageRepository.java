@@ -1,6 +1,7 @@
 package ImageHoster.repository;
 
 import ImageHoster.model.Image;
+import ImageHoster.model.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -69,6 +70,11 @@ public class ImageRepository {
         Image image = typedQuery.getSingleResult();
         return image;
     }
+
+    //The method calls the checkuser() method in the Repository and passes the user id of the image from the database
+//    public User checkUser(Image image) {
+//        return image.getUser();
+//    }
 
     //The method receives the Image object to be updated in the database
     //Creates an instance of EntityManager

@@ -28,21 +28,35 @@ public class UserController {
     //This method declares User type and UserProfile type object
     //Sets the user profile with UserProfile type object
     //Adds User type object to a model and returns 'users/registration.html' file
+
+
+//    String passwordTypeError = "$$$$$$$$$$$$$$$$$";
+    String passwordTypeError = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
+
     @RequestMapping("users/registration")
     public String registration(Model model) {
         User user = new User();
         UserProfile profile = new UserProfile();
         user.setProfile(profile);
         model.addAttribute("User", user);
+        model.addAttribute("passwordTypeError", passwordTypeError);
         return "users/registration";
     }
 
+
+    
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
     //This method calls the business logic and after the user record is persisted in the database, directs to login page
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
-        userService.registerUser(user);
-        return "redirect:/users/login";
+
+        try{
+            userService.registerUser(user);
+            return "redirect:/users/login";
+        }catch(Exception e){
+            return "users/registration";
+      }
+
     }
 
     //This controller method is called when the request pattern is of type 'users/login'
