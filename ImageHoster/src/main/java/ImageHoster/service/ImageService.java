@@ -40,7 +40,6 @@ public class ImageService {
 
     //The method calls the updateImage() method in the Repository and passes the Image to be updated in the database
     public void updateImage(Image updatedImage) {
-
         imageRepository.updateImage(updatedImage);
     }
 

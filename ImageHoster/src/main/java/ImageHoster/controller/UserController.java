@@ -30,8 +30,8 @@ public class UserController {
     //Adds User type object to a model and returns 'users/registration.html' file
 
 
-//    String passwordTypeError = "$$$$$$$$$$$$$$$$$";
-    String passwordTypeError = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
+
+//    String passwordTypeError = "Password must contain atleast 1 alphabet, 1 number & 1 special character";
 
     @RequestMapping("users/registration")
     public String registration(Model model) {
@@ -39,7 +39,7 @@ public class UserController {
         UserProfile profile = new UserProfile();
         user.setProfile(profile);
         model.addAttribute("User", user);
-        model.addAttribute("passwordTypeError", passwordTypeError);
+//        model.addAttribute("passwordTypeError", passwordTypeError);
         return "users/registration";
     }
 
