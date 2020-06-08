@@ -23,15 +23,18 @@ public class UserService {
         String pattern1 = "[a-z]";
         String pattern2 = "[A-Z]";
         String pattern3 = "[0-9]";
+        String pattern4 = "[^a-zA-Z0-9]";
             // Create a Pattern object
         Pattern r1 = Pattern.compile(pattern1);
         Pattern r2 = Pattern.compile(pattern2);
         Pattern r3 = Pattern.compile(pattern3);
+        Pattern r4 = Pattern.compile(pattern4);
             // Now create matcher object.
         Matcher m1 = r1.matcher(pwd);
         Matcher m2 = r2.matcher(pwd);
         Matcher m3 = r3.matcher(pwd);
-        if (m1.find( ) && m2.find( ) && m3.find( ) ) {
+        Matcher m4 = r4.matcher(pwd);
+        if (m1.find( ) && m2.find( ) && m3.find( ) && m4.find( )) {
             userRepository.registerUser(newUser);
         } else {
             int data = 50 / 0;
